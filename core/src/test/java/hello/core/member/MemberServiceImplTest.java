@@ -1,12 +1,20 @@
 package hello.core.member;
 
+import hello.core.AppConfig;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
 
 class MemberServiceImplTest {
-    MemberService memberService = new MemberServiceImpl();
+    MemberService memberService;
+    @BeforeEach
+    void beforeEach(){
+        AppConfig appConfig = new AppConfig();
+        memberService = appConfig.memberService();
+    }
+
 
     @Test
     @DisplayName("member를 저장 및 조회할 수 있다.")
