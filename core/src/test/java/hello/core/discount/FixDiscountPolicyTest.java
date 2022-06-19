@@ -33,7 +33,7 @@ class FixDiscountPolicyTest {
         int discount = discountPolicy.discount(member, 10_000);
 
         // then
-        assertThat(discount).isEqualTo(0);
+        assertThat(discount).isZero();
 
     }
 
