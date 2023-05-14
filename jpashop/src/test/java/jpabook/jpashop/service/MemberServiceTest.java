@@ -35,7 +35,7 @@ public class MemberServiceTest {
         // then
         em.flush();  // commit - sql query 확인 가능
         // transactional에 의해 완료 후 롤백 진행
-        assertEquals(member, memberRepository.find(saveId));
+        assertEquals(member, memberRepository.findOne(saveId));
     }
 
     @Test(expected = IllegalStateException.class)
