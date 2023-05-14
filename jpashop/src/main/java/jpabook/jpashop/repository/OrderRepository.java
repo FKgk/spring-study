@@ -3,7 +3,6 @@ package jpabook.jpashop.repository;
 import jakarta.persistence.EntityManager;
 import jpabook.jpashop.domain.Order;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,8 +20,13 @@ public class OrderRepository {
         return em.find(Order.class, id);
     }
 
-    public List<Order> findAll() {
-        return em.createQuery("select o from Order o", Order.class)
+    public List<Order> findAll(OrderSearch orderSearch) {
+        return em.createQuery("select o from Order o join o.member m"
+                        + " where o.status =:status"
+                        + " and m.name like :name", Order.class)
+                .setParameter("status", orderSearch.getOrderStatus())
+                .setParameter("name", orderSearch.getMemberName())
+                .setMaxResults(1_000)
                 .getResultList();
     }
 }
